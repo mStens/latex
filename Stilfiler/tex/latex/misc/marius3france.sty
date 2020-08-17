@@ -1,0 +1,286 @@
+\ProvidesPackage{marius3france}
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A package mainly for typesetting mathematical notes.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	FINISH THIS!!!!! 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% execute options sier hvilke options som er default:
+\ExecuteOptions{}
+
+%nå er vi ferdige med options processing:
+\ProcessOptions\relax
+
+%ferdiggjør pakke-options
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows}
+\RequirePackage{centernot}
+\RequirePackage[a4paper]{geometry}
+\RequirePackage{lmodern}
+\RequirePackage[francais]{babel}
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\let\Title\title
+\fancyhead[R]{Marius Stensrud}
+\fancyhead[L]{\leftmark}
+\usepackage{tipa}%% for ipa letters
+
+
+%%%%%%%%%%%%%%%%%%% Theorems
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\tcbuselibrary{skins}
+
+\newtcbtheorem[number within=section]{theorem}{Theorem}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\itshape,
+	coltitle=blue!27!black,
+	colbacktitle=blue!15!white,
+	colback=blue!5!white,
+	}{th}
+
+\newtcbtheorem[use counter from=theorem]{lemma}{Lemma}{
+	theorem style=plain apart,
+	label type=theorem,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\itshape,
+	coltitle=green!27!black,
+	colbacktitle=green!15!white,
+	colback=green!5!white,
+	}{lem}
+	
+\newtcbtheorem[use counter from=theorem]{proposition}{Proposition}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=red!27!black,
+	colbacktitle=red!15!white,
+	colback=red!5!white,
+	}{prop}
+	
+\newtcbtheorem[use counter from=theorem]{corollary}{Corollary}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=red!27!black,
+	colbacktitle=red!15!white,
+	colback=red!5!white,
+	}{cor}
+	
+\newtcbtheorem[use counter from=theorem]{definition}{Definition}{
+	theorem style=plain,
+	enhanced,
+	frame hidden,
+	%separator sign none,
+	terminator sign none,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=black!85,
+	colbacktitle=black!15,
+	colback=black!5,
+	}{def}
+	
+\newtcolorbox{example}{
+	frame hidden,
+	colframe=white,
+}
+
+\newtcolorbox{sidebyside}{
+	sidebyside,
+}
+
+\theoremstyle{definition}
+	\newtheorem{fact}[\tcbcounter]{Fact}
+	\newtheorem{problem}{Problem}
+		\renewcommand{\theproblem}{\arabic{problem}}
+	\newtheorem{exercise}[\tcbcounter]{Exercise}
+	\newtheorem{olemma}{Lemma}
+	\newtheorem{case}{Case}
+	\newtheorem*{remark}{Remark}
+	\newtheorem*{komment}{Comment}
+	\newtheorem*{intuition}{Intuition}
+	\newtheorem*{motivation}{Motivation}
+	\newtheorem*{partialprogress}{Partial progress}
+	\newtheorem*{question}{Question}
+	\newtheorem*{claim}{Claim}
+	\newtheorem*{problem*}{Problem}
+	
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{construction}{\begin{proof}[Construction]}{\end{proof}}
+\newenvironment{sketch}{\begin{proof}[Sketch]}{\end{proof}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%custom stuff:
+\author{Marius Stensrud}
+\setlength\parindent{0pt}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\defeq}{\stackrel{\rm{def}}{=}}
+\newcommand{\xeq}[1]{\stackrel{#1}{=}}
+\newcommand{\mangle}{\measuredangle}
+\newcommand{\xto}[1]{\xrightarrow{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\NN}{\mathbf{N}}
+\newcommand{\RR}{\mathbf{R}}
+\newcommand{\QQ}{\mathbf{Q}}
+\newcommand{\CC}{\mathbf{C}}
+\newcommand{\ZZ}{\mathbf{Z}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\nequiv}{\centernot\equiv}
+\newcommand{\nrml}{\mathrel{\unlhd}}
+\newcommand{\fet}[1]{\mathbf{#1}}
+\newcommand{\csum}{\sum_{\rm{cyc}}}
+\newcommand{\ssum}{\sum_{\rm{sym}}}
+\newcommand{\cprod}{\prod_{cyc}}
+\newcommand{\sprod}{\prod_{sym}}
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Pow}{Pow}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\spann}{span}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\FixPt}{FixPt}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\renewcommand{\dfrac}[2]{\frac{\diff #1}{\diff #2}}
+\DeclareRobustCommand*\cal{\@fontswitch\relax\mathcal}
+
+\delimitershortfall-1sp
+
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\parr}[1]{\left( #1 \right)}
+\newcommand{\geng}[1]{\left\langle #1 \right\rangle}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\sbra}[1]{\left[ #1 \right]}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\newenvironment{proof2}{
+\renewcommand{\qedsymbol}{$\square$}
+\begin{proof}
+}
+{
+\end{proof}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+}
+
+\newenvironment{enumeratea}{%
+\renewcommand{\theenumi}{\alph{enumi}}
+\begin{enumerate}
+}
+{
+\end{enumerate}
+\renewcommand{\theenumi}{\arabic{enumi}}
+}
+
+\newenvironment{enumerater}{%
+\renewcommand{\theenumi}{\roman{enumi}}
+\begin{enumerate}
+}
+{
+\end{enumerate}
+\renewcommand{\theenumi}{\arabic{enumi}}
+}
+
+\newenvironment{del}{
+\renewcommand{\qedsymbol}{}
+}
+{
+
+}
+	
+
+\RequirePackage{etoolbox}
+%%%%%%%% resetter countere etter teoremer
+
+\RequirePackage{graphicx}
+\newcommand{\bilde}[2][]{\begin{center} \includegraphics[#1]{#2} \end{center}}
+
+\RequirePackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+
+
+
+
+
+
+\RequirePackage{hyperref}
+\hypersetup{colorlinks = true}
+\definecolor{url}{HTML}{1f7bca}
+\definecolor{cite}{HTML}{7bca1f}
+	\hypersetup{
+    	linkbordercolor = {white},
+    	linkcolor = {magenta},
+    	citecolor =  {cite},
+    	urlcolor = {url},
+	}

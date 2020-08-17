@@ -1,0 +1,105 @@
+\ProvidesPackage{el1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A simple package to help El typeset her thoughts. Language: English
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% deklarer if-statements
+\newif\ifelfancy\elfancytrue
+\newif\ifenglish\englishfalse
+
+% declare options
+\DeclareOption{plain}{
+	\elfancyfalse
+}
+\DeclareOption{english}{
+	\englishtrue
+}
+
+% execute options, to tell the machine which options are default:
+\ExecuteOptions{}
+
+% done with options processing:
+\ProcessOptions\relax
+
+% installing common packages
+\PassOptionsToPackage{dvipsnames, table}{xcolor}
+\PassOptionsToPackage{table}{xcolor}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[a4paper]{geometry}
+\RequirePackage{lmodern}
+\RequirePackage{float}
+\RequirePackage{graphicx}
+
+\ifenglish
+\RequirePackage[english]{babel}
+\else
+\RequirePackage[french]{babel}
+\fi
+
+\ifelfancy
+\RequirePackage{fancyhdr}
+	\pagestyle{fancy}
+	\fancyhead{}
+	\fancyhead[R]{}
+	\fancyhead[L]{\leftmark}
+\fi
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\tcbuselibrary{skins}
+
+\newtcolorbox{graybox}{
+	frame hidden,
+	colframe=white,
+	}
+	
+\newtcolorbox{yellowbox}{
+	frame hidden,
+	colframe=white,
+	colback=yellow!50,
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%custom stuff:
+\author{Éléonore Dées de Sterio}
+\setlength\parindent{0pt}
+
+%lists
+\RequirePackage{enumitem}
+\newenvironment{enumeratea}{%
+\begin{enumerate}[label={\alph*)}]
+}
+{
+\end{enumerate}
+}
+
+\newenvironment{romanlist}{%
+\begin{enumerate}[label={\roman*)}]
+}
+{
+\end{enumerate}
+}
+
+\renewcommand{\labelenumi}{\arabic{enumi})}
+\renewcommand{\labelenumii}{\labelenumi\alph{enumii})}
+\renewcommand{\labelenumiii}{\labelenumii\roman{enumiii})}
+
+\RequirePackage{epigraph}
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+
+\RequirePackage{hyperref}
+\hypersetup{colorlinks = true}
+\definecolor{url}{HTML}{191970}%%1f7bca
+\definecolor{cite}{HTML}{191970}
+	\hypersetup{
+    	linkbordercolor = {white},
+    	linkcolor = {magenta},% used to be magenta, or blue!27!black. I think url is best, but el prefers magenta. So we compromised, and went for magenta.
+    	citecolor =  {cite},
+    	urlcolor = {url},
+	}

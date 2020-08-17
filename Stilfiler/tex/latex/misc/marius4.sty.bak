@@ -1,0 +1,488 @@
+\ProvidesPackage{marius4}
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A package mainly for typesetting mathematical notes. Language: English
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% deklarer if-statements
+\newif\ifmariusnorsk\mariusnorskfalse
+\newif\ifmariusfancy\mariusfancytrue
+
+% deklarer options
+\DeclareOption{norsk}{
+	\mariusnorsktrue
+}
+\DeclareOption{plain}{
+	\mariusfancyfalse
+}
+
+% execute options sier hvilke options som er default:
+\ExecuteOptions{}
+
+% done with options processing:
+\ProcessOptions\relax
+
+% installing common packages
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{tikz}
+	\usetikzlibrary{arrows,shapes,positioning}
+\RequirePackage{tikz-cd} %% for commutative diagrams
+\RequirePackage{centernot}
+\RequirePackage[a4paper]{geometry}
+\RequirePackage{lmodern}
+
+\ifmariusnorsk
+	\RequirePackage[norsk]{babel}
+\else
+	\RequirePackage[english]{babel}
+\fi
+
+\ifmariusfancy
+\RequirePackage{fancyhdr}
+	\pagestyle{fancy}
+	\fancyhead{}
+	\fancyhead[R]{}
+	\fancyhead[L]{\leftmark}
+\fi
+
+%%%%%%%%%%%%%%%%%%% Theorems
+\ifmariusnorsk
+\theoremstyle{definition}
+	\newtheorem{fact}{Fact}[section]
+	\newtheorem{problem}{Oppgave}[section]
+	\newtheorem{exercise}[problem]{Oppgave}
+	\newtheorem{smalllemma}[fact]{Lemma}
+	\newtheorem{smallproposition}[fact]{Proposisjon}
+	\newtheorem{smalltheorem}[fact]{Teorem}
+	\newtheorem{smallcorollary}[fact]{Korollar}
+	\newtheorem{smalldefinition}[fact]{Definisjon}
+	\newtheorem{case}{Case}
+	\newtheorem*{remark}{Bemerkning}
+	\newtheorem*{komment}{Kommentar}
+	\newtheorem*{intuition}{Intuisjon}
+	\newtheorem*{motivation}{Motivasjon}
+	\newtheorem*{partialprogress}{Fremgang}
+	\newtheorem*{question}{Spørsmål}
+	\newtheorem*{claim}{Påstand}
+	\newtheorem*{problem*}{Oppgave}
+	\newtheorem*{conjecture}{Formodning}
+
+\newenvironment{solution}{\begin{proof}[Løsning]}{\end{proof}}
+\newenvironment{construction}{\begin{proof}[Konstruksjon]}{\end{proof}}
+\newenvironment{sketch}{\begin{proof}[Skisse]}{\end{proof}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\tcbuselibrary{skins}
+
+\newtcbtheorem[use counter=fact, number within=section]{theorem}{Teorem}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	colframe=blue!27!black,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\itshape,
+	coltitle=blue!27!black,
+	colbacktitle=blue!15!white,
+	colback=blue!5!white,
+	}{th}
+
+\newtcbtheorem[use counter=fact, number within=section]{lemma}{Lemma}{
+	theorem style=plain apart,
+	label type=theorem,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\itshape,
+	coltitle=green!27!black,
+	colbacktitle=green!15!white,
+	colback=green!5!white,
+	}{lem}
+	
+\newtcbtheorem[use counter=fact, number within=section]{proposition}{Proposisjon}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=red!27!black,
+	colbacktitle=red!15!white,
+	colback=red!5!white,
+	}{prop}
+	
+\newtcbtheorem[use counter=fact, number within=section]{corollary}{Korollar}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=red!27!black,
+	colbacktitle=red!15!white,
+	colback=red!5!white,
+	}{cor}
+	
+\newtcbtheorem[use counter=fact, number within=section]{definition}{Definisjon}{
+	theorem style=plain,
+	enhanced,
+	frame hidden,
+	%separator sign none,
+	terminator sign none,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=black!85,
+	colbacktitle=black!15,
+	colback=black!5,
+	}{def}
+	
+\newtcolorbox{example}{
+	frame hidden,
+	colframe=white,
+	}
+	
+\newtcolorbox{important}{
+	frame hidden,
+	colframe=white,
+	colback=yellow!50,
+}
+\else
+\theoremstyle{definition}
+	\newtheorem{fact}{Fact}[section]
+	\newtheorem{problem}{Problem}[section]
+	\newtheorem{exercise}[problem]{Exercise}
+	\newtheorem{smalllemma}[fact]{Lemma}
+	\newtheorem{smallproposition}[fact]{Proposition}
+	\newtheorem{smalltheorem}[fact]{Theorem}
+	\newtheorem{smallcorollary}[fact]{Corollary}
+	\newtheorem{smalldefinition}[fact]{Definition}
+	\newtheorem{case}{Case}
+	\newtheorem*{remark}{Remark}
+	\newtheorem*{komment}{Comment}
+	\newtheorem*{intuition}{Intuition}
+	\newtheorem*{motivation}{Motivation}
+	\newtheorem*{partialprogress}{Partial progress}
+	\newtheorem{question}{Question}
+	\newtheorem*{claim}{Claim}
+	\newtheorem*{problem*}{Problem}
+	\newtheorem*{conjecture}{Conjecture}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{construction}{\begin{proof}[Construction]}{\end{proof}}
+\newenvironment{sketch}{\begin{proof}[Sketch]}{\end{proof}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\tcbuselibrary{skins}
+
+\newtcbtheorem[use counter=fact, number within=section]{theorem}{Theorem}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	colframe=blue!27!black,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\itshape,
+	coltitle=blue!27!black,
+	colbacktitle=blue!15!white,
+	colback=blue!5!white,
+	}{th}
+
+\newtcbtheorem[use counter=fact, number within=section]{lemma}{Lemma}{
+	theorem style=plain apart,
+	label type=theorem,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\itshape,
+	coltitle=green!27!black,
+	colbacktitle=green!15!white,
+	colback=green!5!white,
+	}{lem}
+	
+\newtcbtheorem[use counter=fact, number within=section]{proposition}{Proposition}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=red!27!black,
+	colbacktitle=red!15!white,
+	colback=red!5!white,
+	}{prop}
+	
+\newtcbtheorem[use counter=fact, number within=section]{corollary}{Corollary}{
+	theorem style=plain apart,
+	enhanced,
+	frame hidden,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=red!27!black,
+	colbacktitle=red!15!white,
+	colback=red!5!white,
+	}{cor}
+	
+\newtcbtheorem[use counter=fact, number within=section]{definition}{Definition}{
+	theorem style=plain,
+	enhanced,
+	frame hidden,
+	%separator sign none,
+	terminator sign none,
+	titlerule=0mm,
+	toptitle=1mm,
+	bottomtitle=1mm,
+	fonttitle=\bfseries\large,
+	description font=\mdseries,
+	fontupper=\normalsize,
+	coltitle=black!85,
+	colbacktitle=black!15,
+	colback=black!5,
+	}{def}
+	
+\newtcolorbox{example}{
+	frame hidden,
+	colframe=white,
+	}
+	
+\newtcolorbox{important}{
+	frame hidden,
+	colframe=white,
+	colback=yellow!50,
+}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%custom stuff:
+\author{Marius Stensrud}
+\setlength\parindent{0pt}
+
+%%% one letter: bb, two letters: bf, cal takes a c in front of letter
+\newcommand{\eps}{\varepsilon}
+\newcommand{\defeq}{\stackrel{\rm{def}}{=}}
+\newcommand{\xeq}[1]{\stackrel{#1}{=}}
+\newcommand{\mangle}{\measuredangle}
+\newcommand{\xto}[1]{\xrightarrow{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\NN}{\mathbf{N}}
+\newcommand{\RR}{\mathbf{R}}
+\newcommand{\QQ}{\mathbf{Q}}
+\newcommand{\CC}{\mathbf{C}}
+\newcommand{\ZZ}{\mathbf{Z}}
+\newcommand{\II}{\mathbf{I}}
+\newcommand{\KK}{\mathbf{K}}
+\newcommand{\PP}{\mathbf{P}}
+\newcommand{\NP}{\mathbf{NP}}
+\newcommand{\CCC}{\mathbf{C}}
+\newcommand{\XX}{\mathbf{X}}
+\newcommand{\YY}{\mathbf{Y}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\ii}{\mathbf{i}}
+\newcommand{\jj}{\mathbf{j}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\dd}{\mathbf{d}}
+\newcommand{\MMM}{\mathcal{M}}
+\newcommand{\nequiv}{\centernot\equiv}
+\newcommand{\nrml}{\mathrel{\unlhd}}
+\newcommand{\rnrml}{\mathrel{\unrhd}}
+\newcommand{\fet}[1]{\mathbf{#1}}
+\newcommand{\csum}{\sum_{\rm{cyc}}}
+\newcommand{\ssum}{\sum_{\rm{sym}}}
+\newcommand{\cprod}{\prod_{cyc}}
+\newcommand{\sprod}{\prod_{sym}}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\xlongmapsto}[1]{\stackrel{#1}{\longmapsto}}
+\newcommand{\xor}{\oplus}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Pow}{Pow}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\spann}{span}
+\DeclareMathOperator{\Null}{Null}
+\DeclareMathOperator{\Char}{Char}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Bil}{Bil}
+\DeclareMathOperator{\Frac}{Frac}
+%%\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\ccl}{ccl}
+\DeclareMathOperator{\FixPt}{FixPt}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\GF}{GF}
+\DeclareMathOperator{\FS}{FS}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\bias}{bias}
+\DeclareMathOperator{\MSE}{MSE}
+\newcommand{\grad}{\nabla}
+\newcommand{\dx}{\mathop{dx}}
+\newcommand{\dy}{\mathop{dy}}
+\newcommand{\dz}{\mathop{dz}}
+\newcommand{\dr}{\mathop{dr}}
+\newcommand{\dt}{\mathop{dt}}
+\newcommand{\drho}{\mathop{d\rho}}
+\newcommand{\dtau}{\mathop{d\tau}}
+\newcommand{\dphi}{\mathop{d\phi}}
+\newcommand{\dtheta}{\mathop{d\theta}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\renewcommand{\dfrac}[2]{\frac{\diff #1}{\diff #2}}
+\newcommand{\pfrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ppfrac}[3][]{\left.\frac{\partial #2}{\partial #3}\right\rvert_{#1}}
+%\renewcommand{\vec}[1]{\overrightarrow{#1}}
+\renewcommand{\vec}[1]{\underline{\mathbf{#1}}}
+\DeclareRobustCommand*\cal{\@fontswitch\relax\mathcal}
+
+\delimitershortfall-1sp
+
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\parr}[1]{\left( #1 \right)}
+\newcommand{\geng}[1]{\left\langle #1 \right\rangle}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\sbra}[1]{\left[ #1 \right]}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\newenvironment{proof2}{
+\renewcommand{\qedsymbol}{$\square$}
+\begin{proof}
+}
+{
+\end{proof}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+}
+
+\newenvironment{enumeratea}{%
+\renewcommand{\theenumi}{\alph{enumi}}
+\begin{enumerate}
+}
+{
+\end{enumerate}
+\renewcommand{\theenumi}{\arabic{enumi}}
+}
+
+\newenvironment{romanlist}{%
+\renewcommand{\theenumi}{\roman{enumi}}
+\begin{enumerate}
+}
+{
+\end{enumerate}
+\renewcommand{\theenumi}{\arabic{enumi}}
+}
+
+\newenvironment{del}{
+\renewcommand{\qedsymbol}{}
+}
+{
+
+}
+	
+
+\RequirePackage{etoolbox}
+%%%%%%%% resetter countere etter teoremer
+\AtBeginEnvironment{proof}{\setcounter{case}{0}}
+
+\RequirePackage{graphicx}
+\newcommand{\bilde}[2][]{\begin{center} \includegraphics[#1]{#2} \end{center}}
+
+\RequirePackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+
+
+
+
+\RequirePackage{hyperref}
+\hypersetup{colorlinks = true}
+\definecolor{url}{HTML}{191970}%%1f7bca
+\definecolor{cite}{HTML}{191970}
+	\hypersetup{
+    	linkbordercolor = {white},
+    	linkcolor = {magenta},
+    	citecolor =  {cite},
+    	urlcolor = {url},
+	}
